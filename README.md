@@ -1,0 +1,2 @@
+# qrscan
+Commandline QRCode Scanner
