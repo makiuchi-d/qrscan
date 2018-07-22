@@ -34,12 +34,12 @@ func NewImageSource(img image.Image) gozxing.LuminanceSource {
 		left,
 	}
 }
-func (this *ImageSource) GetRow(y int, row []byte) []byte {
+func (this *ImageSource) GetRow(y int, row []byte) ([]byte, error) {
 	for x := 0; x < this.GetWidth(); x++ {
 		r, g, b, _ := this.img.At(this.left+x, this.top+y).RGBA()
 		row[x] = byte((r + 2*g + b) * 255 / (4 * 0xffff))
 	}
-	return row
+	return row, nil
 }
 func (this *ImageSource) GetMatrix() []byte {
 	width := this.GetWidth()
