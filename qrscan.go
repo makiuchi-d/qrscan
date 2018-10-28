@@ -11,7 +11,6 @@ import (
 	"os"
 
 	"github.com/makiuchi-d/gozxing"
-	"github.com/makiuchi-d/gozxing/common"
 	"github.com/makiuchi-d/gozxing/qrcode"
 )
 
@@ -39,8 +38,7 @@ func main() {
 	}
 
 	qrreader := qrcode.NewQRCodeReader()
-	src := gozxing.NewLuminanceSourceFromImage(img)
-	bmp, err := gozxing.NewBinaryBitmap(common.NewHybridBinarizer(src))
+	bmp, err := gozxing.NewBinaryBitmapFromImage(img)
 	if err != nil {
 		panic(err)
 	}
