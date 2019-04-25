@@ -11,7 +11,7 @@ import (
 	"os"
 
 	"github.com/makiuchi-d/gozxing"
-	"github.com/makiuchi-d/gozxing/qrcode"
+	"github.com/makiuchi-d/gozxing/multi/qrcode"
 )
 
 func main() {
@@ -37,15 +37,18 @@ func main() {
 		panic(err)
 	}
 
-	qrreader := qrcode.NewQRCodeReader()
 	bmp, err := gozxing.NewBinaryBitmapFromImage(img)
 	if err != nil {
-		panic(err)
-	}
-	result, err := qrreader.Decode(bmp, nil)
-	if err != nil {
-		panic(err)
+		panic(fmt.Sprintf("%+v", err))
 	}
 
-	fmt.Print(result)
+	qrreader := qrcode.NewQRCodeMultiReader()
+	results, err := qrreader.DecodeMultipleWithoutHint(bmp)
+	if err != nil {
+		panic(fmt.Sprintf("%+v", err))
+	}
+
+	for _, result := range results {
+		fmt.Println(result)
+	}
 }
